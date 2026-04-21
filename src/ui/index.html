@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traffic Sign Detector</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@700&family=Hanken+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Traffic Sign Detector</h1>
+            <p class="subtitle">AI-Powered Road Safety Analysis</p>
+        </header>
+
+        <div class="main-content">
+            <div class="upload-section">
+                <div class="upload-area" id="uploadArea">
+                    <span class="upload-icon">🚦</span>
+                    <div class="upload-text">Drop your image here or click to upload</div>
+                    <div class="upload-hint">Supports: JPG, PNG, WEBP (Max 10MB)</div>
+                    <input type="file" id="fileInput" accept="image/*">
+                </div>
+                <div class="spinner" id="spinner"></div>
+            </div>
+
+            <div class="preview-section" id="previewSection">
+                <div class="preview-container">
+                    <div class="image-preview">
+                        <img id="previewImage" src="" alt="Preview">
+                    </div>
+                    <div class="results-panel">
+                        <h2 class="section-title">Detection Results</h2>
+                        <div class="detection-status">
+                            <span class="status-indicator"></span>
+                            <strong>Analysis Complete</strong>
+                        </div>
+                        <div class="detected-signs" id="detectedSigns">
+                            <!-- Results will be populated here -->
+                        </div>
+                        <div class="action-buttons">
+                            <button class="btn btn-primary" onclick="analyzeAgain()">Analyze Another Image</button>
+                            <button class="btn btn-secondary" onclick="downloadResults()">Download Report</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
