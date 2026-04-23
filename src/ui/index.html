@@ -16,12 +16,59 @@
 
         <div class="main-content">
             <div class="upload-section">
-                <div class="upload-area" id="uploadArea">
-                    <span class="upload-icon">🚦</span>
-                    <div class="upload-text">Drop your image here or click to upload</div>
-                    <div class="upload-hint">Supports: JPG, PNG, WEBP (Max 10MB)</div>
-                    <input type="file" id="fileInput" accept="image/*">
+
+                <!-- Mode Toggle -->
+                <div class="mode-toggle">
+                    <button class="mode-btn active" id="uploadModeBtn" onclick="switchMode('upload')">
+                        <span class="mode-icon">📁</span> Upload Image
+                    </button>
+                    <button class="mode-btn" id="cameraModeBtn" onclick="switchMode('camera')">
+                        <span class="mode-icon">📷</span> Use Camera
+                    </button>
                 </div>
+
+                <!-- Upload Mode -->
+                <div id="uploadMode">
+                    <div class="upload-area" id="uploadArea">
+                        <span class="upload-icon">🚦</span>
+                        <div class="upload-text">Drop your image here or click to upload</div>
+                        <div class="upload-hint">Supports: JPG, PNG, WEBP (Max 10MB)</div>
+                        <input type="file" id="fileInput" accept="image/*">
+                    </div>
+                </div>
+
+                <!-- Camera Mode -->
+                <div id="cameraMode" style="display:none;">
+                    <div class="camera-area" id="cameraArea">
+                        <video id="cameraFeed" autoplay playsinline></video>
+                        <div class="camera-overlay">
+                            <div class="scan-frame">
+                                <span class="corner tl"></span>
+                                <span class="corner tr"></span>
+                                <span class="corner bl"></span>
+                                <span class="corner br"></span>
+                                <div class="scan-line"></div>
+                            </div>
+                            <div class="camera-hint">Point at a traffic sign</div>
+                        </div>
+                        <canvas id="captureCanvas" style="display:none;"></canvas>
+                    </div>
+                    <div class="camera-controls">
+                        <button class="btn btn-camera" id="startCameraBtn" onclick="startCamera()">
+                            🎥 Start Camera
+                        </button>
+                        <button class="btn btn-capture" id="captureBtn" onclick="capturePhoto()" style="display:none;">
+                            📸 Capture & Analyze
+                        </button>
+                        <button class="btn btn-stop" id="stopCameraBtn" onclick="stopCamera()" style="display:none;">
+                            ⏹ Stop Camera
+                        </button>
+                    </div>
+                    <p class="camera-permission-hint" id="cameraPermissionHint">
+                        🔒 Camera access required. You'll be prompted to allow it.
+                    </p>
+                </div>
+
                 <div class="spinner" id="spinner"></div>
             </div>
 
@@ -29,6 +76,7 @@
                 <div class="preview-container">
                     <div class="image-preview">
                         <img id="previewImage" src="" alt="Preview">
+                        <div class="source-badge" id="sourceBadge"></div>
                     </div>
                     <div class="results-panel">
                         <h2 class="section-title">Detection Results</h2>
@@ -36,11 +84,9 @@
                             <span class="status-indicator"></span>
                             <strong>Analysis Complete</strong>
                         </div>
-                        <div class="detected-signs" id="detectedSigns">
-                            <!-- Results will be populated here -->
-                        </div>
+                        <div class="detected-signs" id="detectedSigns"></div>
                         <div class="action-buttons">
-                            <button class="btn btn-primary" onclick="analyzeAgain()">Analyze Another Image</button>
+                            <button class="btn btn-primary" onclick="analyzeAgain()">Analyze Another</button>
                             <button class="btn btn-secondary" onclick="downloadResults()">Download Report</button>
                         </div>
                     </div>
